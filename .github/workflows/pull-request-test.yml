@@ -38,7 +38,7 @@ jobs:
             //prepare comment
             const outputcmt = '#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\''; 
   
-           // If we have comment then update it, otherwise create. 
+            //If we have comment then update it, otherwise create. 
             if (botComment) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
@@ -54,4 +54,3 @@ jobs:
                 body: outputcmt
               })
             }
-            
