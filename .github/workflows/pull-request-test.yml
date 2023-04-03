@@ -44,7 +44,7 @@ jobs:
             const commentBody = "Hello from actions/github-script! (${{ github.sha }})"                  
             
             //prepare comment
-            const outputcmt = '#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\''; 
+            const outputcmt = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\'"; 
   
             //If we have comment then update it, otherwise create. 
             if (botComment) {
