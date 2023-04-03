@@ -10,7 +10,7 @@ on:
     outputs:
       mvnOutput:
         description: mvn build results
-        value: ${{ steps.mvn.outcome }}
+        value: ${{ jobs.build.steps.mvn.outcome }}
         
 jobs:
   build:
