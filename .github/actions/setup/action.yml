@@ -1,0 +1,26 @@
+name: Setup Java and Build Artifact
+
+inputs:
+  environment:
+    description: environment
+    required: true
+    type: string
+outputs:
+  mvnOutput:
+    description: mvn build results
+    value: ${{ steps.mvn.outcome }}
+        
+runs:
+  using: "composite"
+  steps:    
+    - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          
+    - name: Build with Maven
+      id: mvn
+      shell: bash
+      run: mvn clean install
