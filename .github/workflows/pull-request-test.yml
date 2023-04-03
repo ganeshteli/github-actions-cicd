@@ -17,7 +17,7 @@ jobs:
         
       - name: mvn build check
         id: maven
-        uses: ./.github/workflows/build.yml
+        uses: ./.github/workflows
         with: 
           environment: dev
           
