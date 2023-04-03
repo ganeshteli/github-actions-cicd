@@ -22,6 +22,7 @@ jobs:
           environment: dev
           
       - uses: actions/github-script@v6
+        if: ${{ success() || failure() }}
         with:
           script: |
             // Get the existing comments for the PR
