@@ -26,14 +26,12 @@ jobs:
           
       - name: mvn build check
         id: maven
-        timeout-minutes: 5
         uses: ./.github/actions/setup
         with: 
           environment: dev        
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
-        timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -41,7 +39,6 @@ jobs:
       - name: SonarQube Quality Gate check
         id: sonarqube-quality-gate-check
         uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
         env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
