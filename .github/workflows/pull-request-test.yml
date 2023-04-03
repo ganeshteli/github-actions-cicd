@@ -29,6 +29,8 @@ jobs:
       - uses: actions/github-script@v6
         if: ${{ success() || failure() }}
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          result-encoding: string
           script: |
             // Get the existing comments for the PR
             const {data: comments} = await github.rest.issues.listComments({
