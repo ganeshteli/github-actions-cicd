@@ -25,18 +25,22 @@ jobs:
       - name: mvn build check
         id: maven
         run: mvn clean install        
+      
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          
       - name: SonarQube Quality Gate check
         id: sonarqube-quality-gate-check
         uses: sonarsource/sonarqube-quality-gate-action@master
         env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Example show SonarQube Quality Gate Status value
-        run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
+      
+      - name: SonarQube Quality Gate Status
+        run: echo "Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
+      
       - uses: actions/github-script@v6
         if: ${{ success() || failure() }}
         with:
@@ -53,7 +57,7 @@ jobs:
             const botComment = comments.find(comment => comment.user.type === "Bot")                                                                       
             const commentBody = "Hello from actions/github-script! (${{ github.sha }})"                  
             //prepare comment
-            const outputcmt1 = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\'"
+            const outputcmt1 = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\' \n"
             const outputcmt = outputcmt1 + "#### Sonar check - '\${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}\'";
             //If we have comment then update it, otherwise create. 
             if (botComment) {
