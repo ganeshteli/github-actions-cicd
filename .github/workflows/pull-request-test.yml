@@ -26,6 +26,10 @@ jobs:
         with: 
           environment: dev
           
+      - name: sonar check
+        id: sonar
+        uses: ./.github/actions/sonar
+          
       - uses: actions/github-script@v6
         if: ${{ success() || failure() }}
         with:
