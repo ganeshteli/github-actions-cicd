@@ -64,7 +64,7 @@ jobs:
             
             //prepare comment
             const outputcmt1 = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\'"
-            const outputcmt = outputcmt1 + "#### Sonar check - '\${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}\'";
+            const outputcmt = outputcmt1 + "\n #### Sonar check - '\${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}\'";
   
             //If we have comment then update it, otherwise create. 
             if (botComment) {
