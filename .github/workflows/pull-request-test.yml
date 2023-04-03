@@ -14,21 +14,21 @@ jobs:
     steps:
       - name : clone code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+        
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          
       - name: mvn build check
         id: maven
         uses: ./.github/actions/setup
         with: 
-          environment: dev
-          
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+          environment: dev        
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
