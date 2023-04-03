@@ -6,6 +6,7 @@ on:
       environment:
         description: environment
         required: false
+        type: string
     outputs:
       mvnOutput:
         description: mvn build results
