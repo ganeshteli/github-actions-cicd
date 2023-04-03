@@ -63,8 +63,8 @@ jobs:
             const commentBody = "Hello from actions/github-script! (${{ github.sha }})"                  
             
             //prepare comment
-            const outputcmt = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\'";
-            const outputcmt = "#### Sonar check - '\${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}\'";
+            const outputcmt = "#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\'
+            #### Sonar check - '\${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}\'";
   
             //If we have comment then update it, otherwise create. 
             if (botComment) {
