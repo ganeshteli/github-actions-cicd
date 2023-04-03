@@ -1,0 +1,57 @@
+name: Pull Request Test
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  pull-request-test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name : clone code
+        uses: actions/checkout@v3
+        
+      - name: mvn build check
+        id: maven
+        uses: ./.github/workflows/build.yml
+        with: 
+          environment: dev
+          
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            // Get the existing comments for the PR
+            const {data: comments} = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.number,
+            })
+
+            // Find any comment already made by the bot.                                                                                                    
+            const botComment = comments.find(comment => comment.user.type === "Bot")                                                                       
+            const commentBody = "Hello from actions/github-script! (${{ github.sha }})"                  
+            
+            //prepare comment
+            const outputcmt = '#### Maven Build - '\${{ steps.maven.outputs.mvnOutput }}\''; 
+  
+           // If we have comment then update it, otherwise create. 
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: outputcmt
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: outputcmt
+              })
+            }
+            
