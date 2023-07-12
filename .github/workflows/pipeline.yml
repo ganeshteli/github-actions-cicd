@@ -5,10 +5,13 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-    environment: 
-      name: Dev
+  build-and-publish:
+    strategy:
+      matrix:
+        environment: [test, pilot, prod]
+    name: build and publish to ${{ matrix.environment }}
     runs-on: ubuntu-latest
+    environment: ${{ matrix.environment }}
     permissions:
       contents: read
       packages: write
